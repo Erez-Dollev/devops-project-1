@@ -11,4 +11,5 @@ resource "libvirt_volume" "kube_vol" {
   name   = "${var.domain_names[count.index]}.${var.volume_format}"
   format = var.volume_format
   size   = var.volume_size
+  pool   = libvirt_pool.kube_pool.name
 }

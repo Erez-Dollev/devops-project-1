@@ -5,3 +5,4 @@
 *.tfstate
 *.tfstate.backup
 .misc
+ubuntu-22.04.2-live-server-amd64.iso

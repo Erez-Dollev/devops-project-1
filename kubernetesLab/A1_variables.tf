@@ -20,6 +20,18 @@ variable "network_addr" {
   default     = ["10.17.3.0/24"]
 }
 
+# pool configuration:
+#############################
+variable "pool_name" {
+  description = "name of the pool cluster"
+  default     = "kubernetes-pool"
+}
+
+variable "pool_type" {
+  description = "type of the pool cluster" # dir is the only one supported according to doc.
+  default     = "dir"
+}
+
 # volume configuration:
 #############################
 
