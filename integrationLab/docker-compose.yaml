@@ -1,0 +1,55 @@
+version: '3.0'
+
+services:
+  jenkins:
+    build:
+      context: .
+      dockerfile: dockerfile
+    hostname: my_jenkins
+    container_name: my_jenkins
+    restart: always
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - cicd
+    ports:
+      - 8080:8080
+
+  gitlab:
+    image: 'gitlab/gitlab-ce:latest'
+    hostname: my_gitlab
+    container_name: my_gitlab
+    restart: always
+    volumes:
+      - gitlab_config:/etc/gitlab
+      - gitlab_logs:/var/log/gitlab
+      - gitlab_data:/var/opt/gitlab
+    networks:
+      - cicd
+    ports:
+      - '80:80'
+
+  artifactory:
+    image: docker.bintray.io/jfrog/artifactory-oss
+    hostname: my_artifactory
+    container_name: my_artifactory
+    restart: always
+    volumes:
+      - artifactory_home:/var/opt/jfrog/artifactory
+    networks:
+      - cicd
+    ports:
+      - 8081:8081
+      - 8082:8082
+
+networks:
+  cicd:
+
+
+volumes:
+  jenkins_home:
+  gitlab_config:
+  gitlab_logs:
+  gitlab_data:
+  artifactory_home:
